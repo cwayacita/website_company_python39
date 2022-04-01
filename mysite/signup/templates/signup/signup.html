@@ -1,0 +1,44 @@
+          {% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block body %}
+
+      <div class="main-wrap">
+        <div class="cover_1">
+          <div class="img_bg" style="background-image: url({% static 'site_static/img/color_iqvia.png' %})" data-stellar-background-ratio="0.5">
+            <div class="container">
+              <div class="row align-items-center" >
+                <div class="col-md-9" data-aos="fade-up" >
+                  <div class="container-form">
+
+                    <form method="post" class="form-signup" >
+                      {% csrf_token %}
+                      {% for field in form %}
+                        <a class="tooltips">
+                          {{ field }}<br>
+                          {% if field.help_text %}
+                           <span>{{ field.help_text }}</span>
+                          {% endif %}
+                        </a>
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+
+                  {% buttons %}
+                      <button type="submit" class="btn btn-primary">Save</button>
+                  {% endbuttons %}
+                    </form>
+
+
+
+                  </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div> <!-- .cover_1 -->
+
+
+      {% endblock body %}

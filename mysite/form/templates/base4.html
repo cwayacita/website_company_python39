@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>QC Spain Channel Dynamics</title>
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(
+    function() {
+        function bs_input_file() {
+        	$("#downloadFrm").hide();
+            $(".input-file").before(
+                function() {
+
+                    if ( ! $(this).prev().hasClass('input-ghost') ) {
+                        var element = $("<input type='file' class='input-ghost' accept='xlsx'  style='visibility:hidden; height:0'>");
+                        element.attr("name",$(this).attr("name"));
+                        element.change(function(){
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function(){
+                            element.click();
+                            $("#downloadFrm").hide()
+                        });
+                       // $(this).find('input').css("cursor","pointer");
+                       // $(this).find('input').mousedown(function() {
+                    	    $('#file').css("cursor","pointer");
+                    	  $('#file').mousedown(function() {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+
+        bs_input_file();
+
+        $("#uploadBtn").on("click", function() {
+            var url = "";
+            var form = $("#uploadFrm")[0];
+            var data = new FormData(form);
+            $('html, body').css("cursor", "wait");
+            /* var data = {};
+            data['key1'] = 'value1';
+            data['key2'] = 'value2'; */
+            $.ajax({
+                type : "POST",
+                encType : "multipart/form-data",
+                url :  url,
+                cache : false,
+                processData : false,
+                contentType : false,
+                data : data,
+                success : function(msg) {
+                	$('html, body').css("cursor", "default");
+                    if (msg.status == 1) {
+                    	$("#downloadFrm").show();
+                    }
+                 window.location = 'http://162.44.12.165:8791/form/media/validated/link';
+                },
+
+            });
+        });
+
+        $("#change-pwd").on("click", function() {
+        	var password =  $("#pwd").val();
+        	alert (password);
+        	$.post('updatePwd', { pwd: password},
+        		function(returnedData){
+        			alert("Password Updated Succesfully");
+        		}).fail(function(){
+        			alert("Error Updating Password");
+        		});
+        })
+
+
+        /*
+        $("#change-pwd").on("click", function() {
+  	 		alert('Change Password');
+           	var url = "upload";
+           	$.ajax({
+                   type : "GET",
+                   dataType : "text",
+                   url : url,
+                   cache : false,
+                   data : $("#pwd").value,
+                   contentType : false,
+                   success : function(msg) {
+                   	alert("Password Updated Succesfully");
+                   },
+                   error : function(fcc) {
+                   	alert("Error Updating Password");
+                   }
+               });
+
+        });
+
+
+        $("#downloadButton").on("click", function() {
+            var url = "http://162.44.12.165:8791/form/media/validated/link";
+            var form = $("#uploadFrm")[0];
+            var data = new FormData(form);
+             var data = {};
+            data['path'] = $("#ouputFilePath").attr("value");
+            $.ajax({
+                type : "POST",
+                encType : "application/json",
+                datatype : "json",
+                url : url,
+                cache : false,
+                processData : false,
+                contentType : false,
+                data : data,
+                success : function(msg) {
+                	 alert("upload file");
+                },
+                error : function(msg) {
+                    alert("Couldn't upload file");
+                }
+            });
+        }); */
+        ;
+function AjaxSucceeded(result) {
+    alert("hello");
+    alert(result.d);
+}
+function AjaxFailed(result) {
+    alert("hello1");
+    alert(result.status + ' ' + result.statusText);
+}
+    });
+  </script>
+
+</head>
+  <body>
+
+	<div class="container" id="container1">
+		<img src="http://162.44.12.165:8791/media/IQ_LOGO_U2cTnkL.png"  alt="IQVIA" style="width: 200px">
+		<div class="col-md-8 col-md-offset-2">
+			<h3>QC Spain Channel Dynamics</h3>
+        </div>
+    </div>
+
+
+    {% block content %}
+    {% endblock %}
+
+  </body>
+
+</html>

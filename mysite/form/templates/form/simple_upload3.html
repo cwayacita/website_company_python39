@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block body %}
+
+
+
+    <div class="main-wrap">
+        <div class="cover_1 cover_sm">
+          <div class="img_bg" style="width:100%;height:100px;background-image: url({% static 'site_static/img/color_iqvia.png' %})" data-stellar-background-ratio="0.5" >
+            <div class="container" >
+              <div class="row align-items-center justify-content-center">
+                <div class="col-md-7" data-aos="fade-up">
+                  <h2 class="heading">Choose your Python Project in the menu</h2>
+                  <p class="lead">Please enter go to your project</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .cover_1 -->
+
+        <div class="section" data-aos="fade-up">
+
+          <div class="container">
+<!--            <div class="row justify-content-center mb-5">-->
+<!--				<div class="col-md-8  text-center">-->
+<!--                    <div class="warning-message">-->
+
+
+				        {% include 'message2.html' %}
+<!--                    </div>-->
+
+				</div>
+              		<div class="col-md-8  text-center">
+						<p>please refresh the page to check the status : <a href="{{ status_url }}">{{ status_url }}</a></p>
+    					<a href="{% static 'C:\Users\cjulemont\PycharmProjects\pythonProject\Output\final.xlsx' %}" download> Download the result of the tasks  </a>
+              </div>
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+	</div>
+
+
+
+
+<script src="{% static 'site_static/js/toastr.min.js' %}"></script>
+<script src="{% static 'site_static/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'site_static/js/bootstrap.min.js' %}"></script>
+
+{% endblock body %}

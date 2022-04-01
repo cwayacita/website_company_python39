@@ -1,0 +1,39 @@
+{% extends 'base3.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% include 'message.html' %}
+
+
+
+
+{% if messages %}
+  <script>
+      {% for message in messages %}
+          $(document).ready(function () {
+              $('.toast').toast('show');
+          });
+      {% endfor %}
+  </script>
+{% endif %}
+		<script>
+
+    var chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/form/');
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var message = data['message'];
+        document.querySelector('#chat-log').value += (message + '\n');
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+
+
+{% endblock %}

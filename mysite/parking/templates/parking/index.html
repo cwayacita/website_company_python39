@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block body %}
+    <div class="main-wrap">
+        <div class="cover_1 cover_sm">
+          <div class="img_bg" style="width:100%;height:100px;background-image: url({% static 'site_static/img/color_iqvia.png' %})" data-stellar-background-ratio="0.5" >
+            <div class="container" >
+              <div class="row align-items-center justify-content-center">
+                <div class="col-md-7" data-aos="fade-up">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .cover_1 -->
+        <h2 class="heading" style="color:black;text-align: center;line-height: 2 ;font-size: 30px" >Search for a Date</h2>
+
+            <div class="cover_1 cover_sm">
+                <div class="row justify-content-center mb-5">
+                    <div class="container-form">
+                    <form method="post" class="form-signup" >
+                      {% csrf_token %}
+                      {% for field in form2 %}
+                        <a class="tooltips">
+                          {{ field }}<br>
+                        {% endfor %}
+                    {% buttons %}
+                      <button type="submit" class="btn btn-primary" name="search_date">Save</button>
+                    {% endbuttons %}
+                        </a>
+                    </form>
+                </div>
+                     <table class="table table-hover" style="text-align: center;">
+                         {% for category in parking_data2 %}
+                         <tr><td>Today left parking accomodations<td>    </td><td> {{ category.free_places_parking }}</td> ></tr>
+                         <tr><td>User of last update :<td>               </td><td> {{ category.user_name }}</td></tr>
+                         <tr><td>Time of last update :<td>               </td><td> {{ category.input_date }}</td></tr>
+                    </table>
+                </div>
+
+                <hr style="height:30px;background-image: url({% static 'site_static/img/color_iqvia.png' %})">
+
+            <h2 class="heading" style="color:black;text-align: center;line-height: 2 ;font-size: 30px;" >Edit the number of available parking </h2>
+
+                <div class="cover_1 cover_sm">
+                <div class="row justify-content-center mb-5">
+                    <div class="container-form">
+                    <form method="post" class="form-signup" >
+                      {% csrf_token %}
+                      {% for field in form %}
+                        <a class="tooltips">
+                          {{ field }}<br>
+                          {% if field.help_text %}
+                           <span>{{ field.help_text }}</span>
+                          {% endif %}
+                        </a>
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+
+                  {% buttons %}
+                      <button type="submit" class="btn btn-primary" name="new_event">Save</button>
+                  {% endbuttons %}
+                    </form>
+                    </div>
+                    <table class="table table-hover" style="text-align: center;" >
+                        {% for category in date_time_obj %}
+                        <td> {{ category }}</td>
+
+                        {% endfor %}
+
+                         {% for category in parking_data %}
+
+                         <tr><td>Today left parking accomodations<td>    </td><td> {{ category.free_places_parking }}</td> ></tr>
+                         <tr><td>User of last update :<td>               </td><td> {{ category.user_name }}</td></tr>
+                         <tr><td>Time of last update :<td>               </td><td> {{ category.input_date }}</td></tr>
+                        {% endfor %}
+<!--                                                    <tr>-->
+<!--                              <td>Number of accomodations</td>-->
+<!--                              <td>{{ category.free_places_parking }}</td>-->
+<!--                              <td></td>-->
+<!--                              <td></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+
+<!--                              <td>User of last update :</td>-->
+<!--                              <td>{{ category.user_name }}</td>-->
+<!--                               <td></td>-->
+<!--                              <td></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+
+<!--                              <td>Time of last update :</td>-->
+<!--                              <td>{{ category.input_date }}</td>-->
+<!--                                <td></td>-->
+<!--                              <td></td>-->
+<!--                            </tr>-->
+                    </table>
+                </div>
+            </div>
+
+          <p class="img_bg" style="width:100%;height:100px;background-image: url({% static 'site_static/img/color_iqvia.png' %})">
+
+          </p>
+
+
+         </div>
+
+
+
+    </div>
+
+
+
+                {% endfor %}
+        <script>
+          $(function () {
+            $("#id_parking_day_date").datepicker({
+              format:'dd/mm/yyyy',
+            });
+          });
+        </script>
+        <script>
+          $(function () {
+            $("#id_search_day_date").datepicker({
+              format:'dd/mm/yyyy',
+            });
+          });
+        </script>
+
+
+
+{% endblock body  %}
